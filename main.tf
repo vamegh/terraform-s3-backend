@@ -5,7 +5,7 @@ terraform {
 }
 
 resource "aws_s3_bucket" "state_bucket" {
-  bucket = "terraform-state-${data.aws_caller_identity.current.id}"
+  bucket = "terraform-state-${data.aws_caller_identity.current.account_id}"
   acl    = "private"
 
   versioning {
@@ -13,12 +13,12 @@ resource "aws_s3_bucket" "state_bucket" {
   }
 
   tags {
-    Name = "terraform-state-${data.aws_caller_identity.current.id}"
+    Name = "terraform-state-${data.aws_caller_identity.current.account_id}"
   }
 }
 
 resource "aws_dynamodb_table" "state_locking_table" {
-  name           = "terraform-state-${data.aws_caller_identity.current.id}"
+  name           = "terraform-state-${data.aws_caller_identity.current.account_id}"
   read_capacity  = 10
   write_capacity = 10
   hash_key       = "LockID"
@@ -34,6 +34,6 @@ resource "aws_dynamodb_table" "state_locking_table" {
   }
 
   tags {
-    Name = "terraform-state-${data.aws_caller_identity.current.id}"
+    Name = "terraform-state-${data.aws_caller_identity.current.account_id}"
   }
 }
