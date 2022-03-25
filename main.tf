@@ -6,11 +6,11 @@ terraform {
 
 resource "aws_s3_bucket" "state_bucket" {
   bucket = local.name
-  acl    = "private"
+  # acl    = "private"
 
-  versioning {
-    enabled = true
-  }
+  #versioning {
+  #  enabled = true
+  #}
 
   tags = {
     Name = local.name
